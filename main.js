@@ -1,9 +1,7 @@
-const firstName = 'Gabriel'
-const lastName = 'Peres'
+const names = ["Bruno", "Milena", "Rafaela", "Gabriel", "Ruan", "Lorenzo", "Lucas"]
+names.sort();
+console.log(names);
 
-console.log(`My name is ${firstName} ${lastName}`)
-
-const age = '18'
-let birthday = '05/22'
-
-console.log(`I'm ${age}and my birthday will be in ${birthday}`)
+const numbers = [5, 33, 19, 60, 74, 25, 13]
+numbers.sort();
+console.log(numbers);
