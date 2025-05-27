@@ -6,8 +6,8 @@ const numberMultipliedBySeven = numbers.map(function (number) {
 
 const ages = [13, 32, 45, 19, 10];
 
-const evenAges = ages.filter(function(age){
-    return age % 2 === 0;
-});
+const sumOfAges = ages.reduce(function(age, accumulator) {
+    return accumulator + age;
+}, 0)
 
-console.log(evenAges);
+console.log(sumOfAges);
