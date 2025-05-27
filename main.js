@@ -4,4 +4,10 @@ const numberMultipliedBySeven = numbers.map(function (number) {
     return number * 7;
 });
 
-console.log(numberMultipliedBySeven);
+const ages = [13, 32, 45, 19, 10];
+
+const evenAges = ages.filter(function(age){
+    return age % 2 === 0;
+});
+
+console.log(evenAges);
