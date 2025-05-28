@@ -1,13 +1,22 @@
-const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const person = {
+    firstName: "Gabriel",
+    lastName: "Peres",
+    age: 19,
+    hobbies: ['Play videogames','play volleyball']
+};
 
-const numberMultipliedBySeven = numbers.map(function (number) {
-    return number * 7;
-});
+//const firstName = person.firstName;
+//const lastName = person.lastName;
+//const age = person.age;
+//const hobbies = person.hobbies;
+// ---------//---------
 
-const ages = [13, 32, 45, 19, 10];
+const { firstName, lastName, age, hobbies } = person;
+//same thing
 
-const sumOfAges = ages.reduce(function(age, accumulator) {
-    return accumulator + age;
-}, 0)
-
-console.log(sumOfAges);
+const volley = person.hobbies[2]
+console.log(firstName);
+console.log(lastName);
+console.log(age);
+console.log(hobbies);
+console.log(volley);
