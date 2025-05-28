@@ -1,22 +1,21 @@
-const person = {
-    firstName: "Gabriel",
-    lastName: "Peres",
-    age: 19,
-    hobbies: ['Play videogames','play volleyball']
-};
+const todos = [
+    {
+        id: 1,
+        description: "Learn a new thing",
+        isCompleted: true,
+    },
+    {
+        id: 2,
+        description: "Studyin JavaScript",
+        isCompleted: true,
+    },
+    {
+        id: 3,
+        description: "Play videogames",
+        isCompleted: false,
+    },
+];
 
-//const firstName = person.firstName;
-//const lastName = person.lastName;
-//const age = person.age;
-//const hobbies = person.hobbies;
-// ---------//---------
+const descriptionOfFirstTodo = todos[1].description;
 
-const { firstName, lastName, age, hobbies } = person;
-//same thing
-
-const volley = person.hobbies[2]
-console.log(firstName);
-console.log(lastName);
-console.log(age);
-console.log(hobbies);
-console.log(volley);
+console.log(descriptionOfFirstTodo);
