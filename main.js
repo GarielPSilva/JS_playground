@@ -16,6 +16,7 @@ const todos = [
     },
 ];
 
-const descriptionOfFirstTodo = todos[1].description;
-
-console.log(descriptionOfFirstTodo);
+const todosJSON = JSON.stringify(todos);
+const todosList = JSON.parse(todosJSON);
+// sempre que mandar para um servidor/whenever you send to a server
+console.log(todosList);
