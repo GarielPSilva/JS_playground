@@ -1,9 +1,7 @@
-const sports = ["Bascketball", "Volleyball", "Soccer"];
+const sum = 2 + 5;
 
-for (let i = 0; i < sports.length; i++ ) {
-    console.log(sports[i]);
+if (sum === 7){
+    console.log("Sum is 7")
+} else {
+    console.log("Sum is not 7")
 }
-
-sports.forEach(function(sports) {
-    console.log(sports);
-}) 
