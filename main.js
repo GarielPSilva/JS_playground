@@ -1,13 +1,19 @@
-const sport = 'Volley';
+const x = '';
+console.log(!!x);
+// false
 
-switch (car) {
-    case "Volley":
-        console.log("Volley helps to grow taller!");
-        break;
-    case "Basketball":
-        console.log("Bascketball helps to jump higher!")
-        break;
-    case "Soccer":
-        console.log("Soccer helps to lose weight!")
-        break;
+const y = 0;
+console.log(!!y);
+// false
+
+const list = [];
+console.log(!![]);
+// TRUE
+
+const object = {};
+console.log(!!object);
+// TRUE
+
+if (list.lenght > 0) {
+    console.log(list)
 }
