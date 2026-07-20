@@ -4,8 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Js Playground</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script src="/main.js"></script>
+    <main class="counter-card">
+        <h1>Counter</h1>
+        <p id="counterValue" class="counter-value">0</p>
+        <p id="speedWarning" class="speed-warning" aria-live="polite"></p>
+        <div class="buttons">
+            <button id="decrementBtn" type="button">- Decrement</button>
+            <button id="incrementBtn" type="button">+ Increment</button>
+        </div>
+    </main>
+
+    <script src="Contador.js"></script>
 </body>
 </html>
