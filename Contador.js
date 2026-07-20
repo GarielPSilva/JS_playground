@@ -1,6 +1,7 @@
 let counter = 0;
 let lastClickTime = 0;
 let warningTimer = null;
+let isCounterPaused = false;
 
 const counterValue = document.getElementById('counterValue');
 const incrementBtn = document.getElementById('incrementBtn');
@@ -24,33 +25,50 @@ function showSpeedWarning() {
     }
 }
 
+function stopCounter() {
+    isCounterPaused = true;
+    incrementBtn.disabled = true;
+    decrementBtn.disabled = true;
+    showSpeedWarning();
+
+    clearTimeout(warningTimer);
+    warningTimer = setTimeout(() => {
+        isCounterPaused = false;
+        if (incrementBtn && decrementBtn) {
+            incrementBtn.disabled = false;
+            decrementBtn.disabled = false;
+        }
+    }, 1200);
+}
+
 function handleCounterChange() {
     const now = Date.now();
 
     if (now - lastClickTime < 100) {
-        showSpeedWarning();
-    }
-    if (showSpeedWarning()) {
         stopCounter();
     }
+
     lastClickTime = now;
 }
 
 function incrementCounter() {
+    if (isCounterPaused) {
+        return;
+    }
+
     counter += 1;
     handleCounterChange();
     updateCounter();
 }
 
 function decrementCounter() {
+    if (isCounterPaused) {
+        return;
+    }
+
     counter -= 1;
     handleCounterChange();
     updateCounter();
-}
-function stopCounter() {
-    counter = 0;
-    updateCounter();
-    handleCounterChange();
 }
 
 if (incrementBtn && decrementBtn && counterValue) {
