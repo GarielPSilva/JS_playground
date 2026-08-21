@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,17 +7,26 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <form action="processar_financas.php" method="post">
-        <label for="renda">Renda Mensal:</label>
-        <input type="number" id="renda" name="renda" required><br><br>
-
-        <label for="despesas">Despesas Mensais:</label>
-        <input type="number" id="despesas" name="despesas" required><br><br>
-
-        <label for="investimentos">Investimentos Mensais:</label>
-        <input type="number" id="investimentos" name="investimentos" required><br><br>
-
-        <input type="submit" value="Calcular">
+    <form id="formulario">
+        <label for="descricao">Descrição:</label>
+            <input type="text" id="descricao" name="descricao">
+        <label for="valor">Valor:</label>
+            <input type="number" id="valor" name="valor" step="0.01">
+        <label for="tipo">Tipo:</label>
+        <select name="tipo" id="tipo">
+            <option value="entrada">Entrada</option>
+            <option value="saida">Saída</option>
+        </select>
+        <label for="categoria">Categoria:</label>
+        <select name="categoria" id="categoria">
+            <option value="salario">Salário</option>
+            <option value="vale_transporte">Vale Transporte</option>
+            <option value="alimentacao">Alimentação</option>
+            <option value="lazer">Lazer</option>
+            <option value="outros">Outros</option>
+        </select>
+        <button type="submit" id="adicionar">Adicionar</button>
     </form>
+    <script src="financeiro.js"></script>
 </body>
 </html>
