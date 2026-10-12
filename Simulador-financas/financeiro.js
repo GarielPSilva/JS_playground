@@ -10,19 +10,55 @@ const formInvestimento = document.getElementById("form-investimento");
 const inputInvestimento = document.getElementById("investimento");
 const investimentoMes = document.getElementById("investimento-mes");
 
+const STORAGE_TRANSACOES = 'financeiro.transacoes';
+const STORAGE_INVESTIMENTOS = 'financeiro.investimentos';
+const MESES_VISIVEIS = 6;
+
 const transacoes = [];
 const investimentos = {};
-const MESES_VISIVEIS = 6;
 
 let mesReferencia = new Date();
 mesReferencia = new Date(mesReferencia.getFullYear(), mesReferencia.getMonth(), 1);
 
 function chaveMes(data) {
-    return `${data.getFullYear()}-${data.getMonth()}`;
+    const ano = data.getFullYear();
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    return `${ano}-${mes}`;
 }
 
 function formatarMoeda(valor) {
     return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+function carregarDados() {
+    try {
+        const salvas = JSON.parse(localStorage.getItem(STORAGE_TRANSACOES));
+        if (Array.isArray(salvas)) {
+            transacoes.push.apply(transacoes, salvas);
+        }
+    } catch (erro) {
+        console.warn('Não foi possível carregar as transações salvas.', erro);
+    }
+
+    try {
+        const salvo = JSON.parse(localStorage.getItem(STORAGE_INVESTIMENTOS));
+        if (salvo && typeof salvo === 'object') {
+            Object.assign(investimentos, salvo);
+        }
+    } catch (erro) {
+        console.warn('Não foi possível carregar os investimentos salvos.', erro);
+    }
+}
+
+function salvarDados() {
+    localStorage.setItem(STORAGE_TRANSACOES, JSON.stringify(transacoes));
+    localStorage.setItem(STORAGE_INVESTIMENTOS, JSON.stringify(investimentos));
+}
+
+function renderizarTudo() {
+    renderizarTransacoes();
+    renderizarResumo();
+    renderizarGrafico();
 }
 
 formulario.addEventListener('submit', function(event) {
@@ -45,13 +81,12 @@ formulario.addEventListener('submit', function(event) {
         valor: valor,
         tipo: tipo,
         categoria: categoria,
-        data: new Date(),
+        mes: chaveMes(mesReferencia),
     };
 
     transacoes.push(transacao);
-    renderizarTransacoes();
-    renderizarResumo();
-    renderizarGrafico();
+    salvarDados();
+    renderizarTudo();
     formulario.reset();
 });
 
@@ -64,12 +99,27 @@ formInvestimento.addEventListener('submit', function(event) {
     }
     investimentos[chaveMes(mesReferencia)] = valor;
     inputInvestimento.value = '';
+    salvarDados();
     renderizarGrafico();
 });
 
 function renderizarTransacoes() {
+    const chave = chaveMes(mesReferencia);
+    const doMes = transacoes.filter(function(transacao) {
+        return transacao.mes === chave;
+    });
+
     listaTransacoes.innerHTML = '';
-    transacoes.forEach(function(transacao) {
+
+    if (doMes.length === 0) {
+        const item = document.createElement('li');
+        item.className = 'vazio';
+        item.textContent = 'Nenhuma transação neste mês.';
+        listaTransacoes.appendChild(item);
+        return;
+    }
+
+    doMes.forEach(function(transacao) {
         const item = document.createElement('li');
         item.textContent = `${transacao.descricao} - ${formatarMoeda(transacao.valor)} - ${transacao.tipo} - ${transacao.categoria}`;
         listaTransacoes.appendChild(item);
@@ -77,7 +127,12 @@ function renderizarTransacoes() {
 }
 
 function renderizarResumo() {
-    const entradas = transacoes
+    const chave = chaveMes(mesReferencia);
+    const doMes = transacoes.filter(function(transacao) {
+        return transacao.mes === chave;
+    });
+
+    const entradas = doMes
         .filter(function(transacao) {
             return transacao.tipo === 'entrada';
         })
@@ -85,7 +140,7 @@ function renderizarResumo() {
             return soma + transacao.valor;
         }, 0);
 
-    const saidas = transacoes
+    const saidas = doMes
         .filter(function(transacao) {
             return transacao.tipo === 'saida';
         })
@@ -106,12 +161,10 @@ function mesesDaJanela() {
     return meses;
 }
 
-function totalInvestidoNoMes(ano, mes) {
+function totalEntradasNoMes(chave) {
     return transacoes
         .filter(function(transacao) {
-            return transacao.tipo === 'entrada'
-                && transacao.data.getFullYear() === ano
-                && transacao.data.getMonth() === mes;
+            return transacao.tipo === 'entrada' && transacao.mes === chave;
         })
         .reduce(function(soma, transacao) {
             return soma + transacao.valor;
@@ -119,21 +172,19 @@ function totalInvestidoNoMes(ano, mes) {
 }
 
 function renderizarGrafico() {
-    labelMesAtual.textContent = mesReferencia.toLocaleDateString('pt-BR', {
+    const mesFormatado = mesReferencia.toLocaleDateString('pt-BR', {
         month: 'long',
         year: 'numeric',
     });
-    investimentoMes.textContent = mesReferencia.toLocaleDateString('pt-BR', {
-        month: 'long',
-        year: 'numeric',
-    });
+    labelMesAtual.textContent = mesFormatado;
+    investimentoMes.textContent = mesFormatado;
 
     const meses = mesesDaJanela();
     const dados = meses.map(function(mes) {
         const chave = chaveMes(mes);
         const temInvestimento = investimentos[chave] !== undefined;
         return {
-            valor: temInvestimento ? investimentos[chave] : totalInvestidoNoMes(mes.getFullYear(), mes.getMonth()),
+            valor: temInvestimento ? investimentos[chave] : totalEntradasNoMes(chave),
             investimento: temInvestimento,
         };
     });
@@ -180,13 +231,13 @@ function renderizarGrafico() {
 
 document.getElementById('mes-anterior').addEventListener('click', function() {
     mesReferencia = new Date(mesReferencia.getFullYear(), mesReferencia.getMonth() - 1, 1);
-    renderizarGrafico();
+    renderizarTudo();
 });
 
 document.getElementById('mes-posterior').addEventListener('click', function() {
     mesReferencia = new Date(mesReferencia.getFullYear(), mesReferencia.getMonth() + 1, 1);
-    renderizarGrafico();
+    renderizarTudo();
 });
 
-renderizarResumo();
-renderizarGrafico();
+carregarDados();
+renderizarTudo();

@@ -271,3 +271,10 @@ body {
     color: #1f2933;
     font-weight: 700;
 }
+
+#transacoes li.vazio {
+    background: transparent;
+    color: #7b8794;
+    font-style: italic;
+    text-align: center;
+}
