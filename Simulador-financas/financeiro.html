@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financeiro</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="financeiro.css">
 </head>
 <body>
     <form id="formulario">
@@ -27,6 +27,20 @@
         </select>
         <button type="submit" id="adicionar">Adicionar</button>
     </form>
+    <div class="conteudo">
+        <section id="lista-transacoes">
+            <h2>Transações</h2>
+            <ul id="transacoes"></ul>
+        </section>
+        <section id="grafico">
+            <div class="grafico-topo">
+                <button type="button" id="mes-anterior" aria-label="Mês anterior">&#8249;</button>
+                <h2 id="mes-atual"></h2>
+                <button type="button" id="mes-posterior" aria-label="Próximo mês">&#8250;</button>
+            </div>
+            <div id="colunas" class="colunas"></div>
+        </section>
+    </div>
     <script src="financeiro.js"></script>
 </body>
 </html>
