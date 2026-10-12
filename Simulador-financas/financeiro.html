@@ -31,6 +31,27 @@
         <section id="lista-transacoes">
             <h2>Transações</h2>
             <ul id="transacoes"></ul>
+            <div class="resumo">
+                <div class="resumo-linha">
+                    <span>Entradas</span>
+                    <strong id="total-entradas">R$ 0,00</strong>
+                </div>
+                <div class="resumo-linha">
+                    <span>Saídas</span>
+                    <strong id="total-saidas">R$ 0,00</strong>
+                </div>
+                <div class="resumo-linha resumo-total">
+                    <span>Valor total</span>
+                    <strong id="total-geral">R$ 0,00</strong>
+                </div>
+            </div>
+            <form id="form-investimento">
+                <label for="investimento">Valor a investir em <span id="investimento-mes"></span></label>
+                <div class="investimento-campo">
+                    <input type="number" id="investimento" step="0.01" placeholder="0,00">
+                    <button type="submit" id="investir">Investir</button>
+                </div>
+            </form>
         </section>
         <section id="grafico">
             <div class="grafico-topo">

@@ -99,6 +99,77 @@ body {
     font-size: 14px;
 }
 
+.resumo {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #e4e7eb;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.resumo-linha {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 14px;
+    color: #52606d;
+}
+
+.resumo-linha strong {
+    color: #1f2933;
+}
+
+.resumo-total {
+    padding-top: 8px;
+    border-top: 1px dashed #e4e7eb;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+#form-investimento {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#form-investimento label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #52606d;
+    text-transform: capitalize;
+}
+
+.investimento-campo {
+    display: flex;
+    gap: 8px;
+}
+
+#investimento {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 10px;
+    border: 1px solid #cbd2d9;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+#investir {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #e08d2f;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#investir:hover {
+    background: #cf7d1f;
+}
+
 .grafico-topo {
     display: flex;
     align-items: center;
@@ -162,6 +233,10 @@ body {
     transition: height 0.3s ease;
 }
 
+.coluna.investimento .barra {
+    background: #e08d2f;
+}
+
 .coluna.destaque .barra {
     background: #27ae60;
 }
@@ -175,6 +250,10 @@ body {
     font-size: 11px;
     white-space: nowrap;
     color: #52606d;
+}
+
+.coluna.investimento .valor-coluna {
+    color: #cf7d1f;
 }
 
 .coluna.destaque .valor-coluna {
