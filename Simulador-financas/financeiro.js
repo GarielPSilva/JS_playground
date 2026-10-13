@@ -161,16 +161,6 @@ function mesesDaJanela() {
     return meses;
 }
 
-function totalEntradasNoMes(chave) {
-    return transacoes
-        .filter(function(transacao) {
-            return transacao.tipo === 'entrada' && transacao.mes === chave;
-        })
-        .reduce(function(soma, transacao) {
-            return soma + transacao.valor;
-        }, 0);
-}
-
 function renderizarGrafico() {
     const mesFormatado = mesReferencia.toLocaleDateString('pt-BR', {
         month: 'long',
@@ -184,7 +174,7 @@ function renderizarGrafico() {
         const chave = chaveMes(mes);
         const temInvestimento = investimentos[chave] !== undefined;
         return {
-            valor: temInvestimento ? investimentos[chave] : totalEntradasNoMes(chave),
+            valor: temInvestimento ? investimentos[chave] : 0,
             investimento: temInvestimento,
         };
     });
