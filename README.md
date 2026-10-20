@@ -38,4 +38,15 @@ Sobre o repositório
 Este repositório reúne projetos práticos desenvolvidos durante minha jornada de aprendizado em programação e desenvolvimento web. O objetivo é aplicar conceitos de JavaScript e aprimorar gradualmente a construção de aplicações interativas.
 Desenvolvido por Gabriel Peres Pinto da Silva
 
+*Contador:*
+<img width="447" height="361" alt="image" src="https://github.com/user-attachments/assets/70cbee7e-7939-44b9-b645-1f0e526c533b" />
+<img width="397" height="312" alt="image" src="https://github.com/user-attachments/assets/149fd550-48fe-4066-b226-cfae6a6a6be1" />
+
+*Simulador-Finanças:*
+<img width="1866" height="484" alt="image" src="https://github.com/user-attachments/assets/dba9aa9e-8806-4140-9f7c-9a72242e77f6" />
+<img width="1879" height="493" alt="image" src="https://github.com/user-attachments/assets/aa6acce7-567b-486a-8a09-8303fa5b93b8" />
+<img width="233" height="202" alt="image" src="https://github.com/user-attachments/assets/73ba4f4a-1cf4-4d49-b488-84604f464111" />
+
+
+
 GitHub: GarielPSilva
