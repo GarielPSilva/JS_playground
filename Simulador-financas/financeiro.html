@@ -7,61 +7,121 @@
     <link rel="stylesheet" href="financeiro.css">
 </head>
 <body>
-    <form id="formulario">
-        <label for="descricao">Descrição:</label>
-            <input type="text" id="descricao" name="descricao">
-        <label for="valor">Valor:</label>
-            <input type="number" id="valor" name="valor" step="0.01">
-        <label for="tipo">Tipo:</label>
-        <select name="tipo" id="tipo">
-            <option value="entrada">Entrada</option>
-            <option value="saida">Saída</option>
-        </select>
-        <label for="categoria">Categoria:</label>
-        <select name="categoria" id="categoria">
-            <option value="salario">Salário</option>
-            <option value="vale_transporte">Vale Transporte</option>
-            <option value="alimentacao">Alimentação</option>
-            <option value="lazer">Lazer</option>
-            <option value="outros">Outros</option>
-        </select>
-        <button type="submit" id="adicionar">Adicionar</button>
-    </form>
-    <div class="conteudo">
-        <section id="lista-transacoes">
-            <h2>Transações</h2>
-            <ul id="transacoes"></ul>
-            <div class="resumo">
-                <div class="resumo-linha">
-                    <span>Entradas</span>
-                    <strong id="total-entradas">R$ 0,00</strong>
+    <nav class="abas" role="tablist" aria-label="Seções do simulador">
+        <button type="button" class="aba ativa" data-aba="painel" role="tab" aria-selected="true" aria-controls="painel">Painel</button>
+        <button type="button" class="aba" data-aba="meta" role="tab" aria-selected="false" aria-controls="meta">Meta de investimento</button>
+    </nav>
+
+    <section id="painel" class="painel ativo" role="tabpanel">
+        <form id="formulario">
+            <label for="descricao">Descrição:</label>
+                <input type="text" id="descricao" name="descricao">
+            <label for="valor">Valor:</label>
+                <input type="number" id="valor" name="valor" step="0.01">
+            <label for="tipo">Tipo:</label>
+            <select name="tipo" id="tipo">
+                <option value="entrada">Entrada</option>
+                <option value="saida">Saída</option>
+            </select>
+            <label for="categoria">Categoria:</label>
+            <select name="categoria" id="categoria">
+                <option value="salario">Salário</option>
+                <option value="vale_transporte">Vale Transporte</option>
+                <option value="alimentacao">Alimentação</option>
+                <option value="lazer">Lazer</option>
+                <option value="outros">Outros</option>
+            </select>
+            <button type="submit" id="adicionar">Adicionar</button>
+        </form>
+        <div class="conteudo">
+            <section id="lista-transacoes">
+                <h2>Transações</h2>
+                <ul id="transacoes"></ul>
+                <div class="resumo">
+                    <div class="resumo-linha">
+                        <span>Entradas</span>
+                        <strong id="total-entradas">R$ 0,00</strong>
+                    </div>
+                    <div class="resumo-linha">
+                        <span>Saídas</span>
+                        <strong id="total-saidas">R$ 0,00</strong>
+                    </div>
+                    <div class="resumo-linha resumo-total">
+                        <span>Valor total</span>
+                        <strong id="total-geral">R$ 0,00</strong>
+                    </div>
                 </div>
-                <div class="resumo-linha">
-                    <span>Saídas</span>
-                    <strong id="total-saidas">R$ 0,00</strong>
+                <form id="form-investimento">
+                    <label for="investimento">Valor a investir em <span id="investimento-mes"></span></label>
+                    <div class="investimento-campo">
+                        <input type="number" id="investimento" step="0.01" placeholder="0,00">
+                        <button type="submit" id="investir">Investir</button>
+                    </div>
+                </form>
+            </section>
+            <section id="grafico">
+                <div class="grafico-topo">
+                    <button type="button" id="mes-anterior" aria-label="Mês anterior">&#8249;</button>
+                    <h2 id="mes-atual"></h2>
+                    <button type="button" id="mes-posterior" aria-label="Próximo mês">&#8250;</button>
                 </div>
-                <div class="resumo-linha resumo-total">
-                    <span>Valor total</span>
-                    <strong id="total-geral">R$ 0,00</strong>
-                </div>
-            </div>
-            <form id="form-investimento">
-                <label for="investimento">Valor a investir em <span id="investimento-mes"></span></label>
-                <div class="investimento-campo">
-                    <input type="number" id="investimento" step="0.01" placeholder="0,00">
-                    <button type="submit" id="investir">Investir</button>
-                </div>
+                <div id="colunas" class="colunas"></div>
+            </section>
+        </div>
+    </section>
+
+    <section id="meta" class="painel" role="tabpanel">
+        <div class="meta-conteudo">
+            <form id="form-meta" class="meta-formulario">
+                <h2>Meta de investimento</h2>
+                <p class="meta-descricao">Informe o objetivo e quanto pretende investir por mês para descobrir em quanto tempo ele será alcançado.</p>
+                <label for="meta-objetivo">Objetivo alvo (R$)</label>
+                <input type="number" id="meta-objetivo" step="0.01" min="0" placeholder="0,00">
+                <label for="meta-aporte">Investimento por mês (R$)</label>
+                <input type="number" id="meta-aporte" step="0.01" min="0" placeholder="0,00">
+                <label for="meta-taxa">Rendimento mensal (%) <span class="opcional">opcional</span></label>
+                <input type="number" id="meta-taxa" step="0.01" min="0" placeholder="0">
+                <label class="meta-checkbox" for="meta-incluir-investido">
+                    <input type="checkbox" id="meta-incluir-investido">
+                    <span>Considerar o total investido (<strong id="meta-total-investido">R$ 0,00</strong>)</span>
+                </label>
             </form>
-        </section>
-        <section id="grafico">
-            <div class="grafico-topo">
-                <button type="button" id="mes-anterior" aria-label="Mês anterior">&#8249;</button>
-                <h2 id="mes-atual"></h2>
-                <button type="button" id="mes-posterior" aria-label="Próximo mês">&#8250;</button>
+            <aside class="meta-resultado" aria-live="polite">
+                <span class="meta-resultado-rotulo">Tempo necessário</span>
+                <strong class="meta-prazo" id="meta-prazo">&mdash;</strong>
+                <span class="meta-detalhe" id="meta-detalhe">Informe uma meta e um investimento mensal para ver o prazo.</span>
+                <div class="meta-resumo">
+                    <div class="meta-resumo-linha">
+                        <span>Total investido</span>
+                        <strong id="meta-resumo-investido">R$ 0,00</strong>
+                    </div>
+                    <div class="meta-resumo-linha">
+                        <span>Falta para a meta</span>
+                        <strong id="meta-resumo-falta">R$ 0,00</strong>
+                    </div>
+                    <div class="meta-resumo-linha" id="meta-resumo-rendimento-linha" hidden>
+                        <span>Rendimento estimado</span>
+                        <strong id="meta-resumo-rendimento">R$ 0,00</strong>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <div class="modal-fundo" id="modal-investimento" hidden>
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+            <h2 id="modal-titulo">Editar investimento</h2>
+            <p class="modal-mes" id="modal-mes"></p>
+            <label for="modal-valor">Valor investido (R$)</label>
+            <input type="number" id="modal-valor" step="0.01" min="0" placeholder="0,00">
+            <div class="modal-acoes">
+                <button type="button" id="modal-remover" class="perigo">Remover</button>
+                <button type="button" id="modal-cancelar">Cancelar</button>
+                <button type="button" id="modal-salvar" class="primario">Salvar</button>
             </div>
-            <div id="colunas" class="colunas"></div>
-        </section>
+        </div>
     </div>
+
     <script src="financeiro.js"></script>
 </body>
 </html>

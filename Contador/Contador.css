@@ -66,3 +66,11 @@ button:disabled {
 #decrementBtn:hover {
     background: #dc2626;
 }
+
+#resetBtn {
+    background: #6b7280;
+}
+
+#resetBtn:hover {
+    background: #4b5563;
+}
